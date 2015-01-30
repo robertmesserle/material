@@ -25,7 +25,8 @@ describe('mdItem directive', function() {
   it('creates buttons when used with ng-click', function() {
     var listItem = setup('<md-item ng-click="sayHello()"><p>Hello world</p></md-item>');
     var firstChild = listItem.children()[0];
-    expect(firstChild.nodeName).toBe('BUTTON');
+    expect(firstChild.nodeName).toBe('DIV');
+    expect(firstChild.getAttribute('role')).toBe('button');
     expect(firstChild.childNodes[0].nodeName).toBe('P');
   });
 

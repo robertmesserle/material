@@ -1,0 +1,15 @@
+md-list.md-THEME_NAME-theme {
+  md-item.md-double-line .md-item-text,
+  md-item.md-triple-line .md-item-text {
+    h3, h4 {
+      color: '{{foreground-1}}';
+    }
+    p {
+      color: '{{foreground-2}}';
+    }
+  }
+  .md-clickable:focus,
+  .md-no-style:focus {
+    background-color: '{{background-100}}';
+  }
+}

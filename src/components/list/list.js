@@ -45,10 +45,11 @@ angular.module('material.components.list', [
  * </hljs>
  *
  */
-function mdListDirective() {
+function mdListDirective($mdTheming) {
   return {
     restrict: 'E',
     link: function($scope, $element, $attr) {
+      $mdTheming($element);
       $element.attr({
         'role' : 'list'
       });
@@ -81,17 +82,16 @@ function mdItemDirective($document, $log) {
   return {
     restrict: 'E',
     compile: function(tEl, tAttrs) {
-      if (tAttrs.ngClick) {
-        // Check for proxy controls and warn 
-        for (var i = 0, type; type = proxiedTypes[i]; ++i) {
-          if (tEl[0].querySelector(type)) {
-            $log.warn('dont use ng-click on md-item\'s with controls in them');
-            return postLink;
-          }
+      // Check for proxy controls and warn 
+      for (var i = 0, type; type = proxiedTypes[i]; ++i) {
+        var proxyElement;
+        if (proxyElement = tEl[0].querySelector(type)) {
+          proxyElement.setAttribute('tabindex', '-1');
         }
-        var containerButton = angular.element('<button class="md-no-style">');
-        tEl.append(containerButton.append(tEl.contents()));
       }
+      var containerButton = angular.element('<div role="button" tabindex=0 class="md-no-style">');
+      tEl[0].setAttribute('tabindex', '-1');
+      tEl.append(containerButton.append(tEl.contents()));
       return postLink;
 
       function postLink($scope, $element, $attr) {
@@ -100,16 +100,36 @@ function mdItemDirective($document, $log) {
         });
 
         var proxies = [];
-        angular.forEach(proxiedTypes, function(type) {
-          angular.forEach($element[0].querySelectorAll(type), function(child) {
-            proxies.push(child);
+
+        computeProxies();
+        computeClickable();
+
+        function computeProxies() {
+          angular.forEach(proxiedTypes, function(type) {
+            angular.forEach($element[0].querySelectorAll(type), function(child) {
+              proxies.push(child);
+            });
           });
+        }
+        function computeClickable() {
+          if (proxies.length || $element[0].hasAttribute('ng-click')) { 
+            $element.addClass('md-clickable');
+          }
+        }
+
+        $element[0].firstElementChild.addEventListener('keypress', function(e) {
+          if (e.keyCode == 13 || e.keyCode == 32) {
+            $element[0].click();
+            e.preventDefault();
+            e.stopPropagation();
+          }
         });
-        if (proxies.length) { $element.addClass('md-clickable'); }
+
         $element.on('click', function(e) {
           angular.forEach(proxies, function(proxy) {
             if (e.target !== proxy && !proxy.contains(e.target)) {
               angular.element(proxy).triggerHandler('click');
+              $element[0].firstElementChild.focus();
             }
           });
         });

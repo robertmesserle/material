@@ -1,13 +1,13 @@
 <md-list ng-controller="ListCtrl">
   <md-item ng-repeat="topping in toppings">
     <p> {{ topping.name }} </p>
-    <md-checkbox class="md-secondary" ng-model="topping.wanted">
+    <md-checkbox class="md-secondary" ng-model="topping.wanted" aria-label="{{ topping.name }}">
   </md-item>
   <md-divider></md-divider>
   <md-item ng-repeat="setting in settings">
     <md-icon-placeholder class="{{setting.icon}} md-icon"></md-icon-placeholder>
     <p> {{ setting.name }} </p>
-    <md-switch class="md-secondary" ng-model="setting.enabled">
+    <md-switch class="md-secondary" ng-model="setting.enabled" aria-label="{{ setting.name }}">
   </md-item>
   <md-item ng-click="navigateAway()">
     <md-icon-placeholder class="data-usage md-icon"></md-icon-placeholder>
@@ -15,7 +15,7 @@
   </md-item>
   <md-divider></md-divider>
   <md-item ng-repeat="person in people">
-    <img src="http://lorempixel.com/100/100/people/" class="md-avatar"></img>
+    <img alt="" src="http://lorempixel.com/100/100/people/" class="md-avatar" />
     <p>{{ person.name }}</p>
     <md-icon-placeholder class="chat md-icon md-secondary" ng-class="{highlight: person.newMessage}"></md-icon-placeholder>
   </md-item>
