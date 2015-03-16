@@ -12,4 +12,15 @@ md-list.md-THEME_NAME-theme {
   .md-no-style:focus {
     background-color: '{{background-100}}';
   }
+
+  md-item > md-icon {
+    color: '{{foreground-2}}';
+
+    &.md-highlight {
+      color: '{{primary-color}}';
+      &.md-accent {
+        color: '{{accent-color}}';
+      }
+    }
+  }
 }

@@ -46,16 +46,15 @@ md-item, md-item > .md-no-style {
   justify-content: flex-start;
   align-items: center;
 
-  & > .md-icon:first-child, 
-  > .md-icon.md-secondary {
+  & > md-icon:first-child, 
+  > md-icon.md-secondary {
     width: $list-item-primary-icon-width;
     margin-top: 12px;
     margin-bottom: 12px;
     box-sizing: content-box;
-    background-color: #0898b9;
   }
 
-  & > .md-icon:first-child {
+  & > md-icon:first-child {
     margin-right: $list-item-primary-width - $list-item-primary-icon-width;
   }
 
@@ -125,7 +124,7 @@ md-item.md-triple-line > .md-no-style {
 
 md-item.md-double-line,
 md-item.md-double-line > .md-no-style {
-  > .md-icon:first-child, 
+  > md-icon:first-child, 
   > .md-avatar:first-child {
     padding-top: $baseline-grid * 1.5;
   }
@@ -137,7 +136,7 @@ md-item.md-double-line > .md-no-style {
 
 md-item.md-triple-line,
 md-item.md-triple-line > .md-no-style {
-  > .md-icon:first-child, 
+  > md-icon:first-child, 
   > .md-avatar:first-child {
     padding-top: $baseline-grid * 2;
   }
