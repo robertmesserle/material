@@ -46,6 +46,10 @@ md-item, md-item > .md-no-style {
   justify-content: flex-start;
   align-items: center;
 
+
+  // Layout for controls in primary or secondary divs, or auto-infered first child
+  & > div.md-primary > md-icon,
+  & > div.md-secondary > md-icon,
   & > md-icon:first-child, 
   > md-icon.md-secondary {
     width: $list-item-primary-icon-width;
@@ -53,11 +57,25 @@ md-item, md-item > .md-no-style {
     margin-bottom: 12px;
     box-sizing: content-box;
   }
+  & > div.md-primary > md-checkbox,
+  & > div.md-secondary > md-checkbox,
+  & > md-checkbox:first-child,
+  md-checkbox.md-secondary {
+    position: relative;
+    top: -2px;
+    margin-top: 14px;
+    margin-bottom: 12px;
+    .md-label { display: none; }
+  }
 
   & > md-icon:first-child {
     margin-right: $list-item-primary-width - $list-item-primary-icon-width;
   }
-
+  & > md-checkbox:first-child {
+    width: 3 * $baseline-grid;
+    margin-left: 3px;
+    margin-right: 29px;
+  }
   & > .md-avatar:first-child {
     width: $list-item-primary-avatar-width;
     height: $list-item-primary-avatar-width;
@@ -70,31 +88,27 @@ md-item, md-item > .md-no-style {
 
   md-checkbox.md-secondary {
     margin-right: 0px;
-    position: relative;
-    top: -2px;
-    margin-top: 14px;
-    margin-bottom: 13px;
-    .md-label { display: none; }
   }
   md-switch.md-secondary {
     margin: 0;
     position: relative;
     right: -9px;
   }
+  .md-secondary {
+    margin-left: $list-item-secondary-left-margin;
+  }
+
   & > p, & > button.md-no-style > p {
     flex: 1;
     margin: 0;
   }
-  .md-secondary {
-    margin-left: $list-item-secondary-left-margin;
-  }
 }
 
 
-md-item.md-double-line,
-md-item.md-double-line > .md-no-style,
-md-item.md-triple-line,
-md-item.md-triple-line > .md-no-style {
+md-item.md-2-line,
+md-item.md-2-line > .md-no-style,
+md-item.md-3-line,
+md-item.md-3-line > .md-no-style {
   align-items: flex-start;
 
   .md-item-text {
@@ -122,11 +136,11 @@ md-item.md-triple-line > .md-no-style {
   }
 }
 
-md-item.md-double-line,
-md-item.md-double-line > .md-no-style {
+md-item.md-2-line,
+md-item.md-2-line > .md-no-style {
   > md-icon:first-child, 
   > .md-avatar:first-child {
-    padding-top: $baseline-grid * 1.5;
+    margin-top: $baseline-grid * 1.5;
   }
   .md-item-text {
     flex: 1;
@@ -134,10 +148,10 @@ md-item.md-double-line > .md-no-style {
   }
 }
 
-md-item.md-triple-line,
-md-item.md-triple-line > .md-no-style {
+md-item.md-3-line,
+md-item.md-3-line > .md-no-style {
   > md-icon:first-child, 
   > .md-avatar:first-child {
-    padding-top: $baseline-grid * 2;
+    margin-top: $baseline-grid * 2;
   }
 }

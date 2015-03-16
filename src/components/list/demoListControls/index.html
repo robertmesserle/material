@@ -1,21 +1,28 @@
 <md-list ng-controller="ListCtrl">
+  <md-subheader class="md-no-sticky">Single Action Checkboxes</md-subheader>
   <md-item ng-repeat="topping in toppings">
     <p> {{ topping.name }} </p>
     <md-checkbox class="md-secondary" ng-model="topping.wanted" aria-label="{{ topping.name }}">
   </md-item>
-  <md-divider></md-divider>
-  <md-item ng-repeat="setting in settings">
-    <md-icon md-svg-icon="{{setting.icon}}" class="md-primary"></md-icon>
+  <md-subheader class="md-no-sticky">Icons with Secondary Switch</md-subheader>
+  <md-item ng-click="navigateTo(setting.extraScreen)" ng-repeat="setting in settings">
+    <md-icon md-svg-icon="{{setting.icon}}"></md-icon>
     <p> {{ setting.name }} </p>
     <md-switch class="md-secondary" ng-model="setting.enabled" aria-label="{{ setting.name }}">
   </md-item>
-  <md-item ng-click="navigateAway()">
-    <md-icon md-class="md-primary" md-svg-icon="communication:import-export"></md-icon>
+  <md-item ng-click="navigateTo('data usage')">
+    <md-icon md-svg-icon="cached"></md-icon>
     <p>Data Usage</p>
   </md-item>
-  <md-divider></md-divider>
+  <md-subheader class="md-no-sticky">Checkbox with Secondary Action</md-subheader>
+  <md-item ng-repeat="message in messages">
+    <md-checkbox ng-model="message.selected" aria-label="Select"></md-checkbox>
+    <p>{{message.title}}</p>
+    <md-icon md-class="md-secondary" md-svg-icon="communication:message"></md-icon>
+  </md-item>
+  <md-subheader class="md-no-sticky">Avatar with Secondary Action Icon</md-subheader>
   <md-item ng-repeat="person in people">
-    <img alt="" src="http://lorempixel.com/100/100/people/" class="md-avatar" />
+    <img alt="avatar" src="http://lorempixel.com/100/100/people/?{{$index}}" class="md-avatar" />
     <p>{{ person.name }}</p>
     <md-icon md-svg-icon="communication:messenger" class="md-secondary md-hue-3" ng-class="{'md-primary': person.newMessage}"></md-icon>
   </md-item>

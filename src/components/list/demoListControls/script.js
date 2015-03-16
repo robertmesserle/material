@@ -1,4 +1,4 @@
-angular.module('listDemo1', ['ngMaterial'])
+angular.module('listDemo2', ['ngMaterial'])
 .config(function($mdIconProvider) {
   $mdIconProvider
     .iconSet('social', 'img/icons/sets/social-icons.svg', 24)
@@ -15,9 +15,17 @@ angular.module('listDemo1', ['ngMaterial'])
   ];
 
   $scope.settings = [
-    { name: 'Wi-Fi', icon: 'device:network-wifi', enabled: true },
-    { name: 'Bluetooth', icon: 'device:bluetooth', enabled: false },
+    { name: 'Wi-Fi', extraScreen: 'Wi-fi menu', icon: 'device:network-wifi', enabled: true },
+    { name: 'Bluetooth', extraScreen: 'Bluetooth menu', icon: 'device:bluetooth', enabled: false },
   ];
+
+  $scope.messages = [
+    {id: 1, title: "Message A", selected: false},
+    {id: 2, title: "Message B", selected: true},
+    {id: 3, title: "Message C", selected: true},
+  ];
+
+
 
   $scope.people = [
     { name: 'Janet Perkins', newMessage: true },
@@ -25,8 +33,8 @@ angular.module('listDemo1', ['ngMaterial'])
     { name: 'Peter Carlsson', newMessage: false }
   ];
 
-  $scope.navigateAway = function() {
-    alert('You would be whisked away!');
+  $scope.navigateTo = function(to) {
+    alert('Imagine being taken to ' + to);
   };
 
 });
