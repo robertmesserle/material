@@ -84,6 +84,35 @@ $chip-delete-icon-size: 1.8rem !default;
       }
     }
 
+    input {
+      border:0;
+      height: $chip-height;
+      line-height: $chip-height;
+      padding: 0;
+
+      &:focus {
+        outline:none;
+      }
+    }
+
+    md-autocomplete, md-autocomplete-wrap {
+      height: $chip-height;
+    }
+
+    md-autocomplete {
+      box-shadow: none;
+
+      input {
+        position: relative;
+      }
+
+      button {
+        md-icon {
+          top: 1px; /* Reposition the (x) button in the autocomplete */
+        }
+      }
+    }
+
     &:not(:first-child) {
       margin: $chip-margin;
     }
