@@ -12,13 +12,12 @@
    * the models of various input components.
    *
    * @param $scope
-   * @param $mdUtil
    * @param $mdConstant
    * @param $log
    * @param $element
    * @constructor
    */
-  function MdChipsCtrl ($scope, $mdUtil, $mdConstant, $log, $element) {
+  function MdChipsCtrl ($scope, $mdConstant, $log, $element) {
     /** @type {Object} */
     this.$mdConstant = $mdConstant;
 

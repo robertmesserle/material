@@ -135,8 +135,6 @@
 >>>>>>> enhance(chips): big updates
       </md-button>';
 
-  //ng-blur="$mdChipsCtrl.resetSelectedChip()"\
-
   /**
    * MDChips Directive Definition
    *
