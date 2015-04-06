@@ -6,12 +6,14 @@
 
   /**
    * @ngdoc directive
-   * @name mdChips
+   * @name mdContactChips
    * @module material.components.chips
    *
    * @description
-   * `<md-contact-chips>` is an input component based on `md-chip` and making use of an
-   *    `md-autocomplete` element.
+   * `<md-contact-chips>` is an input component based on `md-chips` and makes use of an
+   *    `md-autocomplete` element. The component allows the caller to supply a query expression
+   *    which returns  a list of possible contacts. The user can select one of these and add it to
+   *    the list of chips.
    *
    * @param {string=|object=} ng-model A model to bind the list of items to
    * @param {string=} placeholder Placeholder text that will be forwarded to the input.
@@ -19,13 +21,13 @@
    *    displayed when there is at least on item in the list
    * @param {expression} md-contacts An expression expected to return contacts matching the search
    *    test, `$query`.
-   * @param {string=} md-contact-name The field name of the contact object representing the
+   * @param {string} md-contact-name The field name of the contact object representing the
    *    contact's name.
-   * @param {string=} md-contact-email The field name of the contact object representing the
+   * @param {string} md-contact-email The field name of the contact object representing the
    *    contact's email address.
-   * @param {string=} md-contact-image The field name of the contact object representing the
+   * @param {string} md-contact-image The field name of the contact object representing the
    *    contact's image.
-   * @param {boolean=} filter-selected Whether to filter selected contacts from the list of
+   * @param {expression=} filter-selected Whether to filter selected contacts from the list of
    *    suggestions shown in the autocomplete.
    *
    *

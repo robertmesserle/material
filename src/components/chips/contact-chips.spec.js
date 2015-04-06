@@ -42,22 +42,48 @@ describe('<md-contact-chips>', function() {
       expect(element.find('input')[0].placeholder).toBe('To');
     }));
 
-    it('should work like chips with autocomplete', function() {
-
-    });
-
-    it('should render the contacts name and image', function() {
-
-    });
-
     describe('filtering selected items', function() {
-      it('should filter when enabled', function() {
+      it('should filter when enabled', inject(function($timeout) {
+        scope.querySearch = jasmine.createSpy('querySearch').andCallFake(function(q) {
+          return scope.allContacts;
+        });
+        scope.contacts.push(scope.allContacts[2]);
+        scope.filterSelected = true;
+        var element = buildChips(CONTACT_CHIPS_TEMPLATE);
+        var ctrl = element.controller('mdContactChips');
+        $timeout.flush();
 
-      });
+        var autocompleteElement = element.find('md-autocomplete');
+        var autocompleteCtrl = autocompleteElement.controller('mdAutocomplete');
+        autocompleteElement.scope().$apply(function() {
+          autocompleteCtrl.scope.searchText = 'NAME';
+          autocompleteCtrl.keydown({});
+        });
 
-      it('should not filter when disabled', function() {
+        var li = autocompleteElement.find('li');
+        expect(li.length).toBe(2);
+      }));
 
-      });
+      it('should not filter when disabled', inject(function($timeout) {
+        scope.querySearch = jasmine.createSpy('querySearch').andCallFake(function(q) {
+          return scope.allContacts;
+        });
+        scope.contacts.push(scope.allContacts[2]);
+        scope.filterSelected = false;
+        var element = buildChips(CONTACT_CHIPS_TEMPLATE);
+        var ctrl = element.controller('mdContactChips');
+        $timeout.flush();
+
+        var autocompleteElement = element.find('md-autocomplete');
+        var autocompleteCtrl = autocompleteElement.controller('mdAutocomplete');
+        autocompleteElement.scope().$apply(function() {
+          autocompleteCtrl.scope.searchText = 'NAME';
+          autocompleteCtrl.keydown({});
+        });
+
+        var li = autocompleteElement.find('li');
+        expect(li.length).toBe(3);
+      }));
     });
 
   });
