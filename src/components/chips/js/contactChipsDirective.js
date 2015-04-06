@@ -10,22 +10,35 @@
    * @module material.components.chips
    *
    * @description
-   * `<md-contact-chips>` is an input component
+   * `<md-contact-chips>` is an input component based on `md-chip` and making use of an
+   *    `md-autocomplete` element.
+   *
    * @param {string=|object=} ng-model A model to bind the list of items to
    * @param {string=} placeholder Placeholder text that will be forwarded to the input.
    * @param {string=} secondary-placeholder Placeholder text that will be forwarded to the input,
    *    displayed when there is at least on item in the list
-   * @param {boolean=} readonly Disables list manipulation (deleting or adding list items), hiding
-   *    the input and delete buttons
-   * @param {expression} md-on-append An expression expected to convert the input string into an
-   *    object when adding a chip.
+   * @param {expression} md-contacts An expression expected to return contacts matching the search
+   *    test, `$query`.
+   * @param {string=} md-contact-name The field name of the contact object representing the
+   *    contact's name.
+   * @param {string=} md-contact-email The field name of the contact object representing the
+   *    contact's email address.
+   * @param {string=} md-contact-image The field name of the contact object representing the
+   *    contact's image.
+   * @param {boolean=} filter-selected Whether to filter selected contacts from the list of
+   *    suggestions shown in the autocomplete.
+   *
+   *
    *
    * @usage
    * <hljs lang="html">
    *   <md-contact-chips
-   *       ng-model="toRecipients"
+   *       ng-model="ctrl.contacts"
    *       md-contacts="ctrl.querySearch($query)"
-   *
+   *       md-contact-name="name"
+   *       md-contact-image="image"
+   *       md-contact-email="email"
+   *       filter-selected="ctrl.filterSelected"
    *       placeholder="To">
    *   </md-contact-chips>
    * </hljs>
@@ -34,18 +47,33 @@
 
 
   var MD_CONTACT_CHIPS_TEMPLATE = '\
-      <md-chips\
+      <md-chips class="md-contact-chips"\
           ng-model="$mdContactChipsCtrl.contacts">\
           <md-autocomplete\
               md-selected-item="$mdContactChipsCtrl.selectedItem"\
               md-search-text="$mdContactChipsCtrl.searchText"\
               md-items="item in $mdContactChipsCtrl.queryContact($mdContactChipsCtrl.searchText)"\
               md-item-text="$mdContactChipsCtrl.mdContactName"\
-              placeholder="{{placeholder}}">\
-            <span md-highlight-text="$mdContactChipsCtrl.searchText">{{item[$mdContactChipsCtrl.contactName]}}</span>\
+              md-no-cache="$mdContactChipsCtrl.filterSelected"\
+              placeholder="{{$mdContactChipsCtrl.contacts.length == 0 ?\
+                  $mdContactChipsCtrl.placeholder : $mdContactChipsCtrl.secondaryPlaceholder}}">\
+            <div class="md-contact-suggestion">\
+              <img \
+                  ng-src="{{item[$mdContactChipsCtrl.contactImage]}}"\
+                  alt="{{item[$mdContactChipsCtrl.contactName]}}" />\
+              <span md-highlight-text="$mdContactChipsCtrl.searchText">{{item[$mdContactChipsCtrl.contactName]}}</span>\
+              <span>{{item[$mdContactChipsCtrl.contactEmail]}}</span>\
+            </div>\
           </md-autocomplete>\
           <md-chip-template>\
-            <span>{{$chip[$parent.$parent.$parent.$mdContactChipsCtrl.contactName]}}</span>\
+            <div class="md-contact-avatar">\
+              <img \
+                  ng-src="{{$chip[$parent.$parent.$parent.$mdContactChipsCtrl.contactImage]}}"\
+                  alt="{{$chip[$parent.$parent.$parent.$mdContactChipsCtrl.contactName]}}" />\
+            </div>\
+            <div class="md-contact-name">\
+              {{$chip[$parent.$parent.$parent.$mdContactChipsCtrl.contactName]}}\
+            </div>\
           </md-chip-template>\
       </md-chips>';
 
@@ -73,10 +101,12 @@
       scope: {
         contactQuery: '&mdContacts',
         placeholder: '@',
+        secondaryPlaceholder: '@',
         contactName: '@mdContactName',
-
-        readonly: '=readonly',
-        mdOnAppend:'&'
+        contactImage: '@mdContactImage',
+        contactEmail: '@mdContactEmail',
+        filterSelected: '=',
+        contacts: '=ngModel'
       }
     };
 

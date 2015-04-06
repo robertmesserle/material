@@ -4,6 +4,35 @@ $chip-padding: 0 0.8rem 0 1.2rem !default;
 $chip-margin: 0.8rem 0.8rem 0 0 !default;
 $chip-wrap-padding: 0 0.8rem 0.8rem 0.8rem !default;
 $chip-delete-icon-size: 1.8rem !default;
+$contact-chip-padding: 0 0.8rem 0 0 !default;
+$contact-chip-suggestion-image-height: 4.0rem !default;
+
+.md-contact-chips {
+  .md-chips {
+    .md-chip {
+      padding: $contact-chip-padding;
+
+      .md-contact-avatar {
+        float: left;
+        img {
+          height: $chip-height;
+          border-radius: $chip-height / 2;
+        }
+      }
+      .md-contact-name {
+        display: inline-block;
+        height: $chip-height;
+        margin-left: 0.8rem;
+      }
+    }
+  }
+  .md-contact-suggestion {
+    img {
+      height: $contact-chip-suggestion-image-height;
+      border-radius: $chip-height / 2;
+    }
+  }
+}
 
 .md-chips {
   box-shadow: $whiteframe-shadow-z1;
@@ -45,7 +74,9 @@ $chip-delete-icon-size: 1.8rem !default;
       }
 
     }
+
   }
+
 
   .md-chip-input-container {
     display: inline-block;

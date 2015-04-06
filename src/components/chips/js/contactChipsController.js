@@ -33,12 +33,6 @@
     this.ngModelCtrl = null;
 
     /** @type {Object} */
-    this.mdAutocompleteCtrl = null;
-
-    /** @type {Array.<Object>} */
-    this.contacts = [];
-
-    /** @type {Object} */
     this.selectedItem = null;
 
     /** @type {string} */
@@ -46,17 +40,15 @@
   }
 
 
-  MdContactChipsCtrl.prototype.getPlaceholder = function() {
-    return this.items.length == 0 ?
-        this.placeholder :
-        this.secondaryPlaceholder ?
-            this.secondaryPlaceholder :
-            this.placeholder;
+  MdContactChipsCtrl.prototype.queryContact = function(searchText) {
+    var results = this.contactQuery({'$query': searchText});
+    return this.filterSelected ?
+        results.filter(this.filterSelectedContacts.bind(this)) : results;
   };
 
 
-  MdContactChipsCtrl.prototype.queryContact = function(searchText) {
-    return this.contactQuery({'$query': searchText});
+  MdContactChipsCtrl.prototype.filterSelectedContacts = function(contact) {
+    return !this.filterSelected || (this.contacts.indexOf(contact) == -1);
   };
 
   // Init methods
