@@ -73,13 +73,10 @@
    *    the input and delete buttons
    * @param {expression} md-on-append An expression expected to convert the input string into an
    *    object when adding a chip.
-<<<<<<< HEAD
    * @param {string=} delete-hint A string read by screen readers instructing users that pressing
    *    the delete key will remove the chip.
    * @param {string=} delete-button-label A label for the delete button. Also hidden and read by
    *    screen readers.
-=======
->>>>>>> enhance(chips): big updates
    *
    * @usage
    * <hljs lang="html">
@@ -126,13 +123,9 @@
           ng-click="$mdChipsCtrl.removeChip($index)"\
           tabindex="-1">\
         <md-icon md-svg-icon="close"></md-icon>\
-<<<<<<< HEAD
         <span class="md-visually-hidden">\
           {{$mdChipsCtrl.deleteButtonLabel}}\
         </span>\
-=======
-        <span class="visually-hidden">Remove</span>\
->>>>>>> enhance(chips): big updates
       </md-button>';
 
   /**
@@ -154,11 +147,6 @@
         // where various contained-elements can be consumed.
         attrs['$mdUserTemplate'] = element.clone();
         attrs['tabindex'] = '-1';
-<<<<<<< HEAD
-
-
-=======
->>>>>>> enhance(chips): big updates
         return MD_CHIPS_TEMPLATE;
       },
       require: ['mdChips'],
@@ -171,13 +159,9 @@
         readonly: '=readonly',
         placeholder: '@',
         secondaryPlaceholder: '@',
-<<<<<<< HEAD
         mdOnAppend: '&',
         deleteHint: '@',
         deleteButtonLabel: '@'
-=======
-        mdOnAppend:'&'
->>>>>>> enhance(chips): big updates
       }
     };
 
@@ -208,13 +192,6 @@
      * @returns {Function}
      */
     function compile(element, attr) {
-<<<<<<< HEAD
-=======
-      function getInputContainer(el) {
-        return angular.element(el[0].querySelector('.md-chip-input-container'));
-      }
-
->>>>>>> enhance(chips): big updates
       // Grab the user template from attr and reset the attribute to null.
       var userTemplate = attr['$mdUserTemplate'];
       attr['$mdUserTemplate'] = null;
@@ -248,7 +225,6 @@
 
         var chipContentNode = angular.element(element[0].querySelector('.md-chip-content'));
         chipContentNode.append(chipHtml);
-<<<<<<< HEAD
 
         var chipNode = element.find('md-chip');
         chipNode.append(chipRemoveHtml);
@@ -263,22 +239,6 @@
           // Look for a plain input.
           userInput = userTemplate.find('input');
 
-=======
-
-        var chipNode = element.find('md-chip');
-        chipNode.append(chipRemoveHtml);
-
-
-        // Input Element: Look for an autocomplete or an input.
-        var userInput = userTemplate.find('md-autocomplete');
-        if (userInput.length > 0) {
-          hasAutocomplete = true;
-          transcludeInputElement = userInput[0];
-        } else {
-          // Look for a plain input.
-          userInput = userTemplate.find('input');
-
->>>>>>> enhance(chips): big updates
           if (userInput.length > 0) {
             transcludeInputElement = userInput[0];
           } else {
@@ -302,7 +262,6 @@
           var ngModelCtrl = element.controller('ngModel');
 
           mdChipsCtrl.configureNgModel(ngModelCtrl);
-<<<<<<< HEAD
 
           // If an `md-on-append` attribute was set, tell the controller to use the expression
           // when appending chips.
@@ -328,35 +287,6 @@
               var inputContainer = getInputContainer(element);
               inputContainer.append(transcludedElement);
             });
-
-=======
-
-          // If an `md-on-append` attribute was set, tell the controller to use the expression
-          // when appending chips.
-          if (attrs['mdOnAppend']) {
-            mdChipsCtrl.useMdOnAppendExpression();
-          }
-
-          // Transclude the input element with the parent scope if it exists into the input
-          // container.
-          if (transcludeInputElement) {
-            var transcludedElement = $compile(transcludeInputElement)(scope.$parent);
-
-            if (hasAutocomplete) {
-              var mdAutocompleteCtrl = transcludedElement.controller('mdAutocomplete');
-              mdChipsCtrl.configureMdAutocomplete(mdAutocompleteCtrl);
-            } else {
-              mdChipsCtrl.configureUserInput(angular.element(transcludeInputElement));
-            }
-
-            // The `ng-if` directive removes the children from the DOM for the rest of this tick, so
-            // do the append the element via a timeout. see http://goo.gl/zIWfuw
-            $timeout(function() {
-              var inputContainer = getInputContainer(element);
-              inputContainer.append(transcludedElement);
-            });
-
->>>>>>> enhance(chips): big updates
           }
         }
 
