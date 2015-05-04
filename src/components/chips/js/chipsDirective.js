@@ -97,12 +97,18 @@ var MD_CHIPS_TEMPLATE = '\
       <md-chip ng-repeat="$chip in $mdChipsCtrl.items"\
           index="{{$index}}"\
           ng-class="{\'md-focused\': $mdChipsCtrl.selectedChip == $index}">\
+        <div class="md-chip-edit-content"\
+            ng-if="$mdChipsCtrl.editIndex == $index"\
+            tabindex="-1"\
+            md-chip-transclude="$mdChipsCtrl.chipEditTemplate"></div>\
         <div class="md-chip-content"\
             tabindex="-1"\
             aria-hidden="true"\
+            ng-if="$mdChipsCtrl.editIndex != $index"\
             ng-focus="!$mdChipsCtrl.readonly && $mdChipsCtrl.selectChip($index)"\
             md-chip-transclude="$mdChipsCtrl.chipContentsTemplate"></div>\
         <div class="md-chip-remove-container"\
+            ng-if="$mdChipsCtrl.editIndex != $index"\
             md-chip-transclude="$mdChipsCtrl.chipRemoveTemplate"></div>\
       </md-chip>\
       <div ng-if="!$mdChipsCtrl.readonly && $mdChipsCtrl.ngModelCtrl"\
@@ -123,6 +129,9 @@ var CHIP_INPUT_TEMPLATE = '\
 
 var CHIP_DEFAULT_TEMPLATE = '\
     <span>{{$chip}}</span>';
+
+var CHIP_DEFAULT_EDIT_TEMPLATE = '\
+    <md-input ng-model="$chip" />';
 
 var CHIP_REMOVE_TEMPLATE = '\
     <button\
@@ -202,9 +211,11 @@ function MdChips ($mdTheming, $mdUtil, $compile, $timeout) {
 
     // Set the chip remove, chip contents and chip input templates. The link function will put
     // them on the scope for transclusion later.
-    var chipRemoveTemplate   = getTemplateByQuery('[md-chip-remove]') || CHIP_REMOVE_TEMPLATE,
+    var chipRemoveTemplate = getTemplateByQuery('[md-chip-remove]') || CHIP_REMOVE_TEMPLATE,
         chipContentsTemplate = getTemplateByQuery('md-chip-template') || CHIP_DEFAULT_TEMPLATE,
-        chipInputTemplate    = getTemplateByQuery('md-autocomplete')
+        chipEditTemplate = getTemplateByQuery('md-chip-edit-template')
+            || CHIP_DEFAULT_EDIT_TEMPLATE,
+        chipInputTemplate = getTemplateByQuery('md-autocomplete')
             || getTemplateByQuery('input')
             || CHIP_INPUT_TEMPLATE,
         staticChips = userTemplate.find('md-chip');
@@ -225,8 +236,9 @@ function MdChips ($mdTheming, $mdUtil, $compile, $timeout) {
       $mdTheming(element);
       var mdChipsCtrl = controllers[0];
       mdChipsCtrl.chipContentsTemplate = chipContentsTemplate;
-      mdChipsCtrl.chipRemoveTemplate   = chipRemoveTemplate;
-      mdChipsCtrl.chipInputTemplate    = chipInputTemplate;
+      mdChipsCtrl.chipEditTemplate = chipEditTemplate;
+      mdChipsCtrl.chipRemoveTemplate = chipRemoveTemplate;
+      mdChipsCtrl.chipInputTemplate = chipInputTemplate;
 
       element
           .attr({ ariaHidden: true, tabindex: -1 })

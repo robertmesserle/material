@@ -47,6 +47,9 @@ function MdChipsCtrl ($scope, $mdConstant, $log, $element, $timeout) {
   /** @type {number} */
   this.selectedChip = -1;
 
+  /** @type {number} */
+  this.editIndex = -1;
+
 
   /**
    * Hidden hint text for how to delete a chip. Used to give context to screen readers.
@@ -114,11 +117,17 @@ MdChipsCtrl.prototype.chipKeydown = function (event) {
     case this.$mdConstant.KEY_CODE.LEFT_ARROW:
       event.preventDefault();
       if (this.selectedChip < 0) this.selectedChip = this.items.length;
-      if (this.items.length) this.selectAndFocusChipSafe(this.selectedChip - 1);
+      if (this.items.length) this.selectAndFocusChipSafe(this.selectedChip - 1)
+      this.editChip(-1);
       break;
     case this.$mdConstant.KEY_CODE.RIGHT_ARROW:
       event.preventDefault();
       this.selectAndFocusChipSafe(this.selectedChip + 1);
+      break;
+    case this.$mdConstant.KEY_CODE.ENTER:
+        event.preventDefault();
+        // show the edit form.
+        this.editChip(this.selectedChip);
       break;
     case this.$mdConstant.KEY_CODE.ESCAPE:
     case this.$mdConstant.KEY_CODE.TAB:
@@ -128,6 +137,15 @@ MdChipsCtrl.prototype.chipKeydown = function (event) {
       break;
   }
 };
+
+
+/**
+ * Activates the edit mode for the given chip.
+ * @param chip Chip index.
+ */
+MdChipsCtrl.prototype.editChip = function (chip) {
+  this.editIndex = chip;
+}
 
 /**
  * Get the input's placeholder - uses `placeholder` when list is empty and `secondary-placeholder`
@@ -156,6 +174,7 @@ MdChipsCtrl.prototype.removeAndSelectAdjacentChip = function(index) {
  */
 MdChipsCtrl.prototype.resetSelectedChip = function() {
   this.selectedChip = -1;
+  this.editChip(-1);
 };
 
 /**
@@ -263,6 +282,7 @@ MdChipsCtrl.prototype.selectAndFocusChipSafe = function(index) {
 MdChipsCtrl.prototype.selectChip = function(index) {
   if (index >= -1 && index <= this.items.length) {
     this.selectedChip = index;
+    this.editChip(-1);
   } else {
     this.$log.warn('Selected Chip index out of bounds; ignoring.');
   }

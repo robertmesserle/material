@@ -1,0 +1,27 @@
+<div ng-app="editChipsDemo" ng-controller="EditDemoCtrl as ctrl" layout="column">
+
+  <md-content class="md-padding" layout="column">
+    <p>Edit selected chips</p>
+
+    <md-chips class="custom-chips" ng-model="ctrl.vegObjs" readonly="ctrl.readonly"
+              md-on-append="ctrl.newVeg($chip)">
+      <md-chip-template>
+        <span>
+          <strong>{{$chip.name}}</strong>
+          <em>({{$chip.type}})</em>
+        </span>
+      </md-chip-template>
+      <button md-chip-remove class="md-primary vegetablechip">
+        <md-icon md-svg-icon="md-close"></md-icon>
+      </button>
+      <md-chip-edit-template>
+        <md-input ng-model="$chip.name" />
+        <md-input ng-model="$chip.type" />
+      </md-chip-edit-template>
+    </md-chips>
+
+    <br/>
+    <md-checkbox ng-model="ctrl.readonly">Readonly</md-checkbox>
+
+  </md-content>
+</div>
