@@ -1,15 +1,15 @@
-describe('<md-contact-chips>', function() {
+describe('<md-autocomplete-chips>', function() {
   var scope;
-  var CONTACT_CHIPS_TEMPLATE = '\
-      <md-contact-chips\
-          ng-model="contacts"\
-          md-contacts="querySearch($query)"\
-          md-contact-name="name"\
-          md-contact-image="image"\
-          md-contact-email="email"\
+  var AUTOCOMPLETE_CHIPS_TEMPLATE = '\
+      <md-autocomplete-chips\
+          ng-model="items"\
+          md-items="querySearch($query)"\
+          md-avatar-name="name"\
+          md-item-image="image"\
+          md-item-email="email"\
           filter-selected="filterSelected"\
           placeholder="To">\
-      </md-contact-chips>';
+      </md-autocomplete-chips>';
 
   beforeEach(module('material.components.chips'));
 
@@ -31,13 +31,13 @@ describe('<md-contact-chips>', function() {
         image : img
       }
     ];
-    scope.contacts = [];
+    scope.items = [];
   }));
 
   describe('basic functionality', function () {
     it('should show the placeholder', inject(function($timeout) {
-      var element = buildChips(CONTACT_CHIPS_TEMPLATE);
-      var ctrl = element.controller('mdContactChips');
+      var element = buildChips(AUTOCOMPLETE_CHIPS_TEMPLATE);
+      var ctrl = element.controller('mdAutocompleteChips');
       $timeout.flush();
       expect(element.find('input').length).toBe(1);
       expect(element.find('input')[0].placeholder).toBe('To');
@@ -48,10 +48,10 @@ describe('<md-contact-chips>', function() {
         scope.querySearch = jasmine.createSpy('querySearch').and.callFake(function(q) {
           return scope.allContacts;
         });
-        scope.contacts.push(scope.allContacts[2]);
+        scope.items.push(scope.allContacts[2]);
         scope.filterSelected = true;
-        var element = buildChips(CONTACT_CHIPS_TEMPLATE);
-        var ctrl = element.controller('mdContactChips');
+        var element = buildChips(AUTOCOMPLETE_CHIPS_TEMPLATE);
+        var ctrl = element.controller('mdAutocompleteChips');
         $timeout.flush();
 
         var autocompleteElement = element.find('md-autocomplete');
@@ -69,10 +69,10 @@ describe('<md-contact-chips>', function() {
         scope.querySearch = jasmine.createSpy('querySearch').and.callFake(function(q) {
           return scope.allContacts;
         });
-        scope.contacts.push(scope.allContacts[2]);
+        scope.items.push(scope.allContacts[2]);
         scope.filterSelected = false;
-        var element = buildChips(CONTACT_CHIPS_TEMPLATE);
-        var ctrl = element.controller('mdContactChips');
+        var element = buildChips(AUTOCOMPLETE_CHIPS_TEMPLATE);
+        var ctrl = element.controller('mdAutocompleteChips');
         $timeout.flush();
 
         var autocompleteElement = element.find('md-autocomplete');

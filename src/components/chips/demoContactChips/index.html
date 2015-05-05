@@ -3,16 +3,21 @@
   <md-content class="md-padding autocomplete" layout="column">
     <p>Contact Chips.</p>
 
-    <md-contact-chips
+    <md-autocomplete-chips
         ng-model="ctrl.contacts"
-        md-contacts="ctrl.querySearch($query)"
-        md-contact-name="name"
-        md-contact-image="image"
-        md-contact-email="email"
+        md-items="ctrl.querySearch($query)"
+        md-item-name="name"
+        md-item-image="image"
+        md-item-secondary="email"
         md-require-match
         filter-selected="ctrl.filterSelected"
         placeholder="To">
-    </md-contact-chips>
+      <md-chip-template
+          md-avatar-chip-template
+          md-chip-data-map="{name: 'name', image: 'image'}">
+      </md-chip-template>\
+
+    </md-autocomplete-chips>
 
     <md-checkbox ng-model="ctrl.filterSelected">Filter selected contacts from options</md-checkbox>
     <br />
