@@ -132,7 +132,7 @@ function MdAutocompleteChips ($mdTheming, $mdUtil) {
     var userTemplate = attr['$mdUserTemplate'];
     delete attr['$mdUserTemplate'];
 
-    var chipContentsTemplate = getTemplateByQuery('md-chip-template') || 'HELLO';
+    var chipContentsTemplate = getTemplateByQuery('md-chip-template') || null;
 
 
     function getTemplateByQuery (query) {

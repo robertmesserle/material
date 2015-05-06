@@ -92,7 +92,7 @@ var MD_CHIPS_TEMPLATE = '\
             tabindex="-1"\
             aria-hidden="true"\
             ng-focus="!$mdChipsCtrl.readonly && $mdChipsCtrl.selectChip($index)"\
-            md-chip-transclude="$mdChipsCtrl.chipContentTemplate || $mdChipsCtrl.chipContentsTemplate"></div>\
+            md-chip-transclude="$mdChipsCtrl.attrChipContentsTemplate || $mdChipsCtrl.chipContentsTemplate"></div>\
         <div class="md-chip-remove-container"\
             md-chip-transclude="$mdChipsCtrl.chipRemoveTemplate"></div>\
       </md-chip>\
@@ -154,7 +154,7 @@ function MdChips ($mdTheming, $mdUtil, $compile, $timeout) {
       mdOnAppend: '&',
       deleteHint: '@',
       deleteButtonLabel: '@',
-      chipContentTemplate: '@mdChipContentTemplate',
+      attrChipContentsTemplate: '@mdChipContentTemplate',
       requireMatch: '=?mdRequireMatch'
     }
   };
