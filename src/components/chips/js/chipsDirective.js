@@ -26,16 +26,7 @@ angular
  * <h3> Pending Features </h3>
  * <ul style="padding-left:20px;">
  *
- *   <ul>Style
- *     <li>Colours for hover, press states (ripple?).</li>
- *   </ul>
- *
- *   <ul>List Manipulation
- *     <li>delete item via DEL or backspace keys when selected</li>
- *   </ul>
- *
  *   <ul>Validation
- *     <li>de-dupe values (or support duplicates, but fix the ng-repeat duplicate key issue)</li>
  *     <li>allow a validation callback</li>
  *     <li>hilighting style for invalid chips</li>
  *   </ul>
@@ -60,7 +51,7 @@ angular
  *
  *  <span style="font-size:.8em;text-align:center">
  *    Warning: This component is a WORK IN PROGRESS. If you use it now,
- *    it will probably break on you in the future.
+ *    it may break on you in the future.
  *  </span>
  *
  * @param {string=|object=} ng-model A model to bind the list of items to
